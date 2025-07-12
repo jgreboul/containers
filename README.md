@@ -12,6 +12,9 @@ Each container setup is organized in its own **subdirectory**, containing:
 
 ```
 containers/
+├── azurite/
+│   ├── docker-compose.yml
+│   └── README.md
 ├── ollama-openwebui/
 │   ├── docker-compose.yml
 │   └── README.md
@@ -24,7 +27,9 @@ containers/
 
 | Folder              | Description                                 |
 |---------------------|---------------------------------------------|
+| `azurite`           | Run Azurite for local Azure development     |
 | `ollama-openwebui`  | Run Ollama + OpenWebUI for offline LLM use  |
+|                     |                                             |
 | *(more coming soon)*| *(check back often for updates!)*           |
 
 ---
