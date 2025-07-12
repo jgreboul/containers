@@ -1,0 +1,35 @@
+services:
+  ollama_openwebui:
+    image: ollama/ollama
+    container_name: ollama_openwebui
+    environment:
+      - OLLAMA_KEEP_ALIVE=-1
+    volumes:    
+      - ollama_openwebui:/root/.ollama
+    restart: unless-stopped
+    entrypoint: >
+      sh -c "
+      ollama serve &
+      sleep 5 &&
+      ollama pull gemma3:1b &&
+      wait
+      "
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "3000:8080"
+    environment:
+      - OPENAI_API_KEY=ollama
+      - OLLAMA_BASE_URL=http://ollama_openwebui:11434
+    volumes:
+      - open-webui:/app/backend/data
+      - ollama_openwebui:/root/.ollama
+    restart: always
+    depends_on:
+      - ollama_openwebui
+
+volumes:
+  ollama_openwebui:
+  open-webui:
